@@ -1,0 +1,102 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        
+         List<List<Integer>> list =new ArrayList<>();
+        if(root==null)
+            return list;
+        Queue<TreeNode> queue=new LinkedList();
+        
+        queue.add(root);
+        while(!queue.isEmpty()){
+            int size=queue.size();
+             List<Integer> temp=new ArrayList<>();
+            for(int i=0;i<size;i++){
+           
+            TreeNode top=queue.poll();
+              
+            temp.add(top.val);
+             if(top.left!=null)
+                queue.add(top.left);
+            if(top.right!=null)
+                queue.add(top.right);
+           
+            }
+            list.add(0,temp);
+            
+        }
+       return list; 
+        
+        
+    }
+}
+
+
+**Method 2**
+/* using stack and queue*/
+/* 
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+
+class Tree
+{
+    public ArrayList<Integer> reverseLevelOrder(Node root) 
+    {
+        // code hereList<List<Integer>> list =new ArrayList<>();
+        
+        ArrayList<Integer>list =new ArrayList<>();
+        if(root==null)
+            return list;
+        Queue<Node> queue=new LinkedList();
+        Stack<Node>s=new Stack<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+           
+          
+           
+            Node top=queue.peek();
+            queue.remove(top);
+            s.push(top);
+              
+           //for reverse level order visit the right sub tree first then left subtree
+             if(top.right!=null)
+                queue.add(top.right);
+             if(top.left!=null)
+                queue.add(top.left);
+           
+           
+            }
+            
+            while(s.isEmpty()==false){
+            list.add(s.peek().data);
+            s.pop();
+            }
+            
+        
+       return list; 
+    }
+} 
