@@ -1,1 +1,72 @@
+O(n) Time complexity using only height of tree
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+     int max =0;
+    int height(TreeNode root)
+    {
+        if(root == null)
+        return 0;
+        
+        int lh = height(root.left);
+        int rh = height(root.right);
+        
+        max = Math.max(max,lh+rh);
+        
+        return 1+Math.max(lh,rh); 
+        //in recursion helps to find max of left subtree & right subtree at particular node
+        
+    }
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root == null)
+            return 0;
+        
+        height(root);
+        return max;
+        
+    }
+}
 
+//O(N^2) solution
+//at a particular node find left subtree and right subtree height add it
+//continue this for each and every node in the tree
+//return max(height of both subtree,max(diameter of both subtree))
+
+class Solution {
+    int max =0;
+    int height(TreeNode root)
+    {
+        if(root == null)
+        return 0;
+        
+        int lh = height(root.left);
+        int rh = height(root.right);
+            
+        return 1+Math.max(lh,rh);
+        
+    }
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root == null)
+            return 0;
+        
+        int h = height(root.left)+ height(root.right);
+        
+        int ld = diameterOfBinaryTree(root.left);
+        int rd = diameterOfBinaryTree(root.right);
+        return Math.max(h,Math.max(ld,rd));
+        
+    }
+}
