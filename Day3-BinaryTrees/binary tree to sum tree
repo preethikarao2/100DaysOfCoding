@@ -1,0 +1,41 @@
+           Binary tee:
+           -----------
+                 10
+               /      \
+             -2        6
+           /   \      /  \ 
+         8     -4    7    5
+         
+         changed to:
+         -----------
+                  20(4-2+12+6)
+               /      \
+         4(8-4)      12(7+5)
+           /   \      /  \ 
+         0      0    0    0
+         
+         
+         Given a Binary Tree of size N , where each node can have positive or negative values. 
+         Convert this to a tree where each node contains the sum of the left and right sub trees of the original tree. 
+         The values of leaf nodes are changed to 0.
+         
+         class Solution{
+    public void toSumTree(Node root){
+         //add code here.
+         Helper(root);
+    }
+    public int Helper(Node root){
+        if(root==null)
+        return 0;
+        int old_val=root.data;
+         root.data=Helper(root.left)+ Helper(root.right);
+         return root.data+old_val;
+    }
+}
+         
+  /*
+  Do a traversal of the given tree. In the traversal, store the old value of the current node, 
+  recursively call for left and right subtrees and change the value of current node as sum of the values returned by the recursive calls. 
+  Finally return the sum of new value and value (which is sum of values in the subtree rooted with this node). 
+  */
+         
